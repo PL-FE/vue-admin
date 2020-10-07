@@ -34,6 +34,10 @@ export default {
             {
               index: 'Bpmn',
               label: 'Bpmn.js'
+            },
+            {
+              index: 'ckEditor',
+              label: 'ckEditor'
             }
           ]
         },
@@ -49,7 +53,7 @@ export default {
           icon: 'el-icon-location',
           children: [
             {
-              index: '3-1',
+              index: '404',
               label: '404'
             }
           ]
@@ -68,17 +72,6 @@ export default {
       const { menuData } = this
       const activeUrl = menuData.filter(({ children }) => children.length)[0].children[0].index
       return activeUrl
-    }
-  },
-  watch: {
-    defaultActive: {
-      handler (path) {
-        const curPath = this.$route.name
-        if (curPath !== path) {
-          this.$router.push({ path })
-        }
-      },
-      immediate: true
     }
   },
   methods: {

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Projet from '@/views/project'
+import Project from '@/views/project'
 import Bpmn from '@/views/bpmn'
+import ckEditor from '@/views/ck-editor'
 import NotFind from '@/components/NotFind.vue'
 
 Vue.use(VueRouter)
@@ -9,18 +10,34 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Projet',
-    component: Projet,
+
+    name: 'Project',
+    component: Project,
     children: [
       {
-        path: '/Bpmn',
+        path: 'Bpmn',
         name: 'Bpmn',
-        component: Bpmn
+        components: {
+          Bpmn
+        }
+      },
+      {
+        path: 'ckEditor',
+        name: 'ckEditor',
+        components: {
+          ckEditor
+        }
+      },
+      {
+        path: '/404',
+        name: '404',
+        components: {
+          404: NotFind
+        }
       },
       {
         path: '*',
-        name: '404',
-        component: NotFind
+        redirect: '/Bpmn'
       }
     ]
   }

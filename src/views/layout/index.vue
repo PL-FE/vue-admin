@@ -2,9 +2,10 @@
   <div class="layout">
     <Header @changeCollapse="changeCollapse"></Header>
     <div class="content">
-      <LeftMenu ref="LeftMenu"></LeftMenu>
-      <div class="rightContent">
-        <router-view />
+      <LeftMenu ref="LeftMenu"
+        class="left"></LeftMenu>
+      <div class="right">
+        <RightContent></RightContent>
       </div>
     </div>
   </div>
@@ -13,10 +14,12 @@
 <script>
 import Header from './header'
 import LeftMenu from './leftMenu'
+import RightContent from './rightContent'
 export default {
   components: {
     Header,
-    LeftMenu
+    LeftMenu,
+    RightContent
   },
   data () {
     return {
@@ -38,8 +41,10 @@ export default {
     height: calc(100% - 65px);
     overflow: auto;
 
-    .rightContent {
-      flex: 1;
+    .right {
+      padding: 0 15px;
+      width: calc(100% - 231px);
+      overflow: hidden;
     }
   }
 }
