@@ -82,5 +82,15 @@ export default {
 <style lang="less" scoped>
 .rightContent {
   overflow: hidden;
+  height: 100%;
+  /deep/.el-tabs {
+    height: 100%;
+    .el-tabs__content {
+      height: calc(100% - 56px);
+      .el-tab-pane {
+        height: 100%;
+      }
+    }
+  }
 }
 </style>
