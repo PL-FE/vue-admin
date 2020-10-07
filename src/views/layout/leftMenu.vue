@@ -1,36 +1,21 @@
 <template>
   <div class="leftMenu">
-    <el-menu default-active="1-4-1"
+    <el-menu router
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
+      :default-openeds="defaultOpeneds"
+      :default-active="defaultActive"
       :collapse="isCollapse">
-      <el-submenu index="1">
+      <el-submenu :index="m.index"
+        v-for="m in menuData"
+        :key="m.index">
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
+          <i :class="m.icon"></i>
+          <span slot="title">{{m.label}}</span>
         </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
+        <el-menu-item v-for="sub in m.children"
+          :key="sub.index"
+          :index="sub.index">{{sub.label}}</el-menu-item>
       </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -39,16 +24,64 @@
 export default {
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      menuData: [
+        {
+          label: '插件',
+          index: '1',
+          icon: 'el-icon-location',
+          children: [
+            {
+              index: 'Bpmn',
+              label: 'Bpmn.js'
+            }
+          ]
+        },
+        {
+          label: '组件',
+          index: '2',
+          icon: 'el-icon-location',
+          children: []
+        },
+        {
+          label: '404',
+          index: '3',
+          icon: 'el-icon-location',
+          children: [
+            {
+              index: '3-1',
+              label: '404'
+            }
+          ]
+        }
+
+      ]
+    }
+  },
+  computed: {
+    defaultOpeneds () {
+      const { menuData } = this
+
+      return menuData.map(({ index }) => index)
+    },
+    defaultActive () {
+      const { menuData } = this
+      const activeUrl = menuData.filter(({ children }) => children.length)[0].children[0].index
+      return activeUrl
+    }
+  },
+  watch: {
+    defaultActive: {
+      handler (path) {
+        const curPath = this.$route.name
+        if (curPath !== path) {
+          this.$router.push({ path })
+        }
+      },
+      immediate: true
     }
   },
   methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath)
-    }
   }
 }
 </script>
@@ -63,6 +96,7 @@ export default {
 }
 
 .el-menu-vertical-demo {
+  overflow: auto;
   height: 100%;
 }
 </style>

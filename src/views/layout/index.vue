@@ -3,6 +3,9 @@
     <Header @changeCollapse="changeCollapse"></Header>
     <div class="content">
       <LeftMenu ref="LeftMenu"></LeftMenu>
+      <div class="rightContent">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -31,8 +34,13 @@ export default {
 .layout {
   height: 100%;
   .content {
+    display: flex;
     height: calc(100% - 65px);
     overflow: auto;
+
+    .rightContent {
+      flex: 1;
+    }
   }
 }
 </style>

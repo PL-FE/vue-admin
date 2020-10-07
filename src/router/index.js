@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Projet from '@/views/project'
+import Bpmn from '@/views/bpmn'
+import NotFind from '@/components/NotFind.vue'
 
 Vue.use(VueRouter)
 
@@ -8,8 +10,21 @@ const routes = [
   {
     path: '/',
     name: 'Projet',
-    component: Projet
+    component: Projet,
+    children: [
+      {
+        path: '/Bpmn',
+        name: 'Bpmn',
+        component: Bpmn
+      },
+      {
+        path: '*',
+        name: '404',
+        component: NotFind
+      }
+    ]
   }
+
   // {
   //   path: '/about',
   //   name: 'About',

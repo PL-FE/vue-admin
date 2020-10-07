@@ -25,11 +25,11 @@
   "[vue]": {
     "editor.defaultFormatter": "octref.vetur"
   },
-  // 让函数(名)和后面的括号之间加个空格
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
-  }
+  },
+  "prettier.semi": false
 }
