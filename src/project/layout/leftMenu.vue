@@ -1,10 +1,10 @@
 <template>
   <div class="leftMenu">
-    <el-menu router
-      class="el-menu-vertical-demo"
+    <el-menu class="el-menu-vertical-demo"
       :default-openeds="defaultOpeneds"
-      :default-active="defaultActive"
-      :collapse="isCollapse">
+      :default-active="DycurTab"
+      :collapse="isCollapse"
+      @select="selectChange">
       <el-submenu :index="m.index"
         v-for="m in menuData"
         :key="m.index">
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -53,8 +55,8 @@ export default {
           icon: 'el-icon-location',
           children: [
             {
-              index: '404',
-              label: '404'
+              index: 'NotFind',
+              label: 'NotFind'
             }
           ]
         }
@@ -63,18 +65,33 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['curTab']),
     defaultOpeneds () {
       const { menuData } = this
 
       return menuData.map(({ index }) => index)
     },
-    defaultActive () {
-      const { menuData } = this
-      const activeUrl = menuData.filter(({ children }) => children.length)[0].children[0].index
-      return activeUrl
+
+    DycurTab () {
+      return this.curTab
     }
   },
+  mounted () {
+    this.init()
+  },
   methods: {
+    ...mapMutations(['SET_TABS', 'SET_CURTAB']),
+    init () {
+      const { menuData } = this
+      const activeUrl = menuData.filter(({ children }) => children.length)[0].children[0].index
+      // this.defaultActive = activeUrl
+      this.SET_TABS(activeUrl)
+    },
+
+    selectChange (index, path) {
+      this.SET_TABS(path[1])
+      this.SET_CURTAB(path[1])
+    }
   }
 }
 </script>

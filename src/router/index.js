@@ -1,45 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Project from '@/views/project'
-import Bpmn from '@/views/bpmn'
-import ckEditor from '@/views/ck-editor'
-import NotFind from '@/components/NotFind.vue'
+import Project from '@/project'
+import NotFind from '@/components/NotFind'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-
     name: 'Project',
-    component: Project,
-    children: [
-      {
-        path: 'Bpmn',
-        name: 'Bpmn',
-        components: {
-          Bpmn
-        }
-      },
-      {
-        path: 'ckEditor',
-        name: 'ckEditor',
-        components: {
-          ckEditor
-        }
-      },
-      {
-        path: '/404',
-        name: '404',
-        components: {
-          404: NotFind
-        }
-      },
-      {
-        path: '*',
-        redirect: '/Bpmn'
-      }
-    ]
+    component: Project
+  },
+  {
+    path: '*',
+    name: '404',
+    component: NotFind
   }
 
   // {

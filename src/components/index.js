@@ -1,6 +1,5 @@
 const requireComponents = require.context('./', false, /\.vue/)
-
-export default function install(Vue) {
+export default function install (Vue) {
   requireComponents.keys().forEach(fileName => {
     // 组件实例
     const reqCom = requireComponents(fileName)
