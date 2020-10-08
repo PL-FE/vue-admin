@@ -31,7 +31,7 @@ export default {
         {
           label: '插件',
           index: '1',
-          icon: 'el-icon-location',
+          icon: 'el-icon-s-cooperation',
           children: [
             {
               index: 'Bpmn',
@@ -46,7 +46,7 @@ export default {
         {
           label: '组件',
           index: '2',
-          icon: 'el-icon-location',
+          icon: 'el-icon-s-grid',
           children: []
         },
         {

@@ -9,6 +9,8 @@
     "all": "npm run build && node ./deploy.js"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-decoupled-document": "^23.0.0",
+    "@ckeditor/ckeditor5-vue": "^1.0.3",
     "bpmn-js": "^7.3.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
