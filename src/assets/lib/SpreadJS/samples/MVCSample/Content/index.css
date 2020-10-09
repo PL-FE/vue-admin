@@ -1,0 +1,68 @@
+﻿.header {
+    background-color:#283442;
+    color:#ffffff;
+    font-size:52px;
+    font-family:'Forza SSm A', 'Forza SSm B';
+    padding-left:10%;
+}
+
+.intro {
+    font-family:'Gotham SSm A', 'Gotham SSm B';
+    margin-left:8%;
+    margin-right:10%;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.busyIndicator{
+    font-family: Arial,sans-serif;
+    color: #4f4f4f;
+    background: #ffffff;
+    border:1px solid #a8a8a8;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    box-shadow:0 0 10px rgba(0,0,0,0.25);
+    font-size:20px;
+    padding:0.4em;
+    opacity:1;
+    position:absolute;
+}
+
+.button {
+    width:100px;
+}
+
+.summary {
+    font-family:'Forza SSm A', 'Forza SSm B';
+    font-size:18px;
+}
+
+.detail {
+    font-family:'Gotham SSm A', 'Gotham SSm B';
+    line-height:1.8em;
+}
+
+.footer {
+    position:fixed;
+    background-color:black;
+    color:white;
+    width:100%;
+    height:50px;
+    text-align:center;
+    padding:15px;
+    bottom:0px;
+}
+
+#ss {
+    width:84%;
+    height:450px;
+    border: 1px gray solid;
+    margin-left:8%;
+    margin-right:10%;
+}
+
+#operation {
+    margin-top: 20px;
+    margin-left:8%;
+}
+

@@ -40,6 +40,10 @@ export default {
             {
               index: 'ckEditor',
               label: 'ckEditor'
+            },
+            {
+              index: 'SpreadJS',
+              label: 'SpreadJS'
             }
           ]
         },

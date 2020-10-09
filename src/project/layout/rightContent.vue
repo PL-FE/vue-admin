@@ -18,11 +18,13 @@
 import { mapGetters, mapMutations } from 'vuex'
 import Bpmn from '@/views/bpmn'
 import ckEditor from '@/views/ck-editor'
+import SpreadJS from '@/views/spread-js'
 
 export default {
   components: {
     Bpmn,
-    ckEditor
+    ckEditor,
+    SpreadJS
   },
   data () {
     return {

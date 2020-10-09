@@ -1,0 +1,20 @@
+.componentContainer {
+    position: absolute;
+    padding: 10px;
+    left: 242px;
+    top: 0;
+    bottom: 20px;
+    right: 0;
+}
+
+.spreadContainer {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    box-shadow: 0 0 20px grey;
+}
+
+.settingContainer {
+    position: absolute;
+    bottom: 0;
+}

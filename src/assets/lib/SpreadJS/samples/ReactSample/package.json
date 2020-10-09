@@ -1,0 +1,19 @@
+{
+  "name": "react-spreadjs",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@grapecity/spread-sheets": "^13.2.0",
+    "@grapecity/spread-sheets-react": "^13.2.0",
+    "@grapecity/spread-sheets-resources-zh": "^13.2.0",
+    "react": "^16.2.0",
+    "react-color": "^2.14.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "homepage": "."
+}

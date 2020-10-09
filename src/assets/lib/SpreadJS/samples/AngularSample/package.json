@@ -1,0 +1,39 @@
+{
+  "name": "spread-sheets-angular-sample",
+  "version": "1.0.0",
+  "description": "Angular support sample for SpreadJS",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build"
+  },
+  "keywords": [],
+  "author": "GrapeCity",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/animations": "~9.1.6",
+    "@angular/common": "~9.1.6",
+    "@angular/compiler": "~9.1.6",
+    "@angular/core": "~9.1.6",
+    "@angular/forms": "~9.1.6",
+    "@angular/platform-browser": "~9.1.6",
+    "@angular/platform-browser-dynamic": "~9.1.6",
+    "@angular/router": "~9.1.6",
+    "@grapecity/spread-sheets": "^13.2.0",
+    "@grapecity/spread-sheets-angular": "^13.2.0",
+    "@grapecity/spread-sheets-resources-zh": "^13.2.0",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.901.5",
+    "@angular/cli": "~9.1.5",
+    "@angular/compiler-cli": "~9.1.6",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
+    "protractor": "~5.4.3",
+    "ts-node": "~8.3.0",
+    "typescript": "~3.8.3"
+  }
+}

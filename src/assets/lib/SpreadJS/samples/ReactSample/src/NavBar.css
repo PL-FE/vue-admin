@@ -1,0 +1,34 @@
+.navigationBar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 20px;
+    padding: 0 10px;
+    width: 200px;
+    border-right: 2px solid #e3e3e3;
+}
+
+.navigationBar li {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.navItem{
+    text-decoration: none;
+    color: #607D8B;
+    cursor: pointer;
+}
+
+.navItem:hover {
+    color: #039be5;
+    background-color: #CFD8DC;
+}
+
+
+.componentContainer {
+    position: absolute;
+    padding: 10px;
+    left: 242px;
+    top: 0;
+    bottom: 20px;
+    right: 0;
+}

@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script src="@Url.Content("~/Scripts/gc.spread.sheets.all.13.2.0.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/gc.spread.sheets.resources.zh.13.2.0.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/license.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/index.js")"></script>
+<script type="text/javascript">
+    $(function () {
+        //initialize SpreadJS widget
+        var spread = new GC.Spread.Sheets.Workbook($("#ss")[0]);
+        var sheet = spread.getActiveSheet();
+        //load data from data source
+        showDelayDiv();
+        readData(sheet, '@Url.Action("LoadAll", "Home")', function () {
+            hideDelayDiv();
+        });
+
+        $("input[type=button]").button();
+        $("#create").click(function () {
+            createData(sheet, '@Url.Action("Create", "Home")', function () {
+                readData(sheet, '@Url.Action("LoadAll", "Home")');
+                alert("Create successfully.");
+            });
+        });
+        $("#update").click(function () {
+            updateData(sheet, '@Url.Action("UpdateAll", "Home")', function () {
+                alert("Update successfully.");
+            });
+        });
+        $("#delete").click(function () {
+            deleteData(sheet, '@Url.Action("Delete", "Home")', function () {
+                alert("Delete successfully.");
+            });
+        });
+        $("#sort").click(function () {
+            readData(sheet, '@Url.Action("Sort", "Home")', function () {
+                alert("Sort successfully.");
+            });
+        });
+    });
+</script>
+
+<div class="header">SpreadJS MVC Sample</div>
+<div class="content">
+    <div class="intro">
+        <p class="summary">This sample shows how you can create a MVC application with SpreadJS, including CRUD operations for database.</p>
+        <p class="detail">
+            When the document is ready, SpreadJS will be initialized, then it loads data from server by Ajax request.
+            The "Create" button will create a new record and insert it to the last row in client, then sync changes to server.
+            After some records has been modified in client, you could sync changes to server by the "Update" button.
+            The "Delete" button will delete record of the active row then sync the changes to server.
+            Besides CRUD operations, Entity Framework provides more operations for database, such as "Sort" in the sample.
+        </p>
+    </div>
+    <div id="ss"></div>
+    <div id="operation">
+        <input class="button btn btn-default" type="button" value="Create" id="create" />
+        <input class="button btn btn-default" type="button" value="Update" id="update" />
+        <input class="button btn btn-default" type="button" value="Delete" id="delete" />
+        <input class="button btn btn-default" type="button" value="Sort" id="sort" />
+    </div>
+</div>
