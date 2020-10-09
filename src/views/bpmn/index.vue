@@ -11,6 +11,9 @@
         style="display: none"
         @change="loadXML" />
     </div>
+    <div class="djs-palette"
+      ref="palette">
+    </div>
     <div class="canvas"
       ref="canvas"></div>
   </div>
@@ -19,6 +22,7 @@
 <script>
 // 引入相关的依赖
 import BpmnModeler from 'bpmn-js/lib/Modeler'
+import customPalette from './customBpmn/palette'
 import { xmlStr } from './xmlData' // 这里是直接引用了xml字符串
 export default {
   name: 'Bpmn',
@@ -32,14 +36,28 @@ export default {
     }
   },
   mounted () {
-    this.init()
+    this.$nextTick(() => {
+      this.init()
+    })
   },
   methods: {
     init () {
+      // 去除默认工具栏
+      const modules = BpmnModeler.prototype._modules
+      const index = modules.findIndex(it => it.paletteProvider)
+      modules.splice(index, 1)
+
       const canvas = this.$refs.canvas
+      // 自定义工具栏位置
+      const palette = this.$refs.palette
       // 建模
       this.bpmnModeler = new BpmnModeler({
-        container: canvas
+        modules,
+        container: canvas,
+        paletteContainer: palette,
+        additionalModules: [
+          customPalette
+        ]
       })
 
       // 绑定事件
@@ -179,6 +197,16 @@ export default {
     left: 50%;
     bottom: 20px;
     transform: translateX(-50%);
+  }
+
+  .djs-palette {
+    width: 100px;
+    height: 100%;
+    position: absolute;
+    border: 1px solid #ccc;
+    left: 0;
+    z-index: 2;
+    top: 0;
   }
 }
 </style>
