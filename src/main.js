@@ -11,6 +11,9 @@ import 'bpmn-js/dist/assets/diagram-js.css' // 左边工具栏以及编辑节点
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
+import 'diagram-js-minimap/assets/diagram-js-minimap.css'
+
+import '@/assets/css/bpmn.less'
 
 Vue.use(CKEditor)
 Vue.use(ElementUI)

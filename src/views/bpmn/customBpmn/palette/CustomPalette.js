@@ -128,13 +128,15 @@ Palette.prototype._init = function () {
   var parentContainer = this._getParentContainer()
 
   let _container = this._paletteContainer
-
+  // 这里使用 djs-palette 、 djs-palette-entries 作为类名是因为 使用工具栏的样式
+  // 如果要自定义工具栏样式 可以修改此类名，为新类名写上自己的样式即可
   if (!_container) {
     _container = domify('<div class="djs-palette"></div>')
+  } else {
+    domAttr(_container, 'class', 'djs-palette')
   }
 
   const paletteEntriesContainer = domQuery('.djs-palette-entries', _container)
-  console.log('paletteEntriesContainer', paletteEntriesContainer)
   if (!paletteEntriesContainer) {
     _container.appendChild(domify('<div class="djs-palette-entries"></div>'))
   }

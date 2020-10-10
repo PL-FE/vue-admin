@@ -35,15 +35,13 @@ export default {
 
 <style lang="less" scoped>
 .layout {
-  height: 100%;
   .content {
     display: flex;
-    height: calc(100% - 65px);
     overflow: auto;
-
     .right {
       padding: 0 15px;
       width: calc(100% - 231px);
+      height: calc(100vh - 65px);
       overflow: hidden;
     }
   }
