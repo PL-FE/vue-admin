@@ -8,7 +8,8 @@
         v-for="(item) in tabs"
         :label="item.title"
         :name="item.name">
-        <component :is="item.name"></component>
+        <component class="custom-component"
+          :is="item.name"></component>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -73,6 +74,10 @@ export default {
         height: 100%;
       }
     }
+  }
+
+  .custom-component {
+    height: 100%;
   }
 }
 </style>

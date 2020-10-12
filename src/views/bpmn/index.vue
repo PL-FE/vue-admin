@@ -9,6 +9,7 @@
       <el-button @click="handlerZoom(0.1)">放大</el-button>
       <el-button @click="handlerZoom(-0.1)">缩小</el-button>
       <el-button @click="handlerZoom(0)">还原</el-button>
+      <el-button @click="getElementAll">获取所有元素</el-button>
 
       <input type="file"
         id="files"
@@ -16,8 +17,7 @@
         style="display: none"
         @change="loadXML" />
     </div>
-    <div ref="palette">
-    </div>
+    <div ref="palette"></div>
     <div class="canvas"
       ref="canvas"></div>
   </div>
@@ -27,6 +27,7 @@
 // 引入相关的依赖
 import BpmnModeler from 'bpmn-js/lib/Modeler'
 import customPalette from './customBpmn/palette'
+import entries from './config/paletteEntries'
 import minimapModule from 'diagram-js-minimap'
 
 import { xmlStr } from './xmlData' // 这里是直接引用了xml字符串
@@ -36,9 +37,7 @@ import {
   create as svgCreate
 } from 'tiny-svg'
 
-import {
-  query as domQuery
-} from 'min-dom'
+import { query as domQuery } from 'min-dom'
 
 export default {
   name: 'Bpmn',
@@ -73,6 +72,7 @@ export default {
         modules,
         container: canvas,
         paletteContainer: palette,
+        paletteEntries: entries,
         keyboard: {
           bindTo: document
         },
@@ -104,6 +104,8 @@ export default {
       // 调整与正中间
       this.bpmnModeler.get('canvas').zoom('fit-viewport', 'auto')
 
+      const a = this.bpmnModeler.get('canvas').getContainer()
+      console.log('a', a)
       // 初始化箭头
       this.initArrow('sequenceflow-arrow-normal')
       this.initArrow('sequenceflow-arrow-active')
@@ -145,7 +147,8 @@ export default {
 
       svgAttr(path, {
         d: 'M 1 5 L 11 10 L 1 15 Z',
-        style: ' stroke-width: 1px; stroke-linecap: round; stroke-dasharray: 10000, 1; '
+        style:
+          ' stroke-width: 1px; stroke-linecap: round; stroke-dasharray: 10000, 1; '
       })
 
       const defs = domQuery('defs')
@@ -230,7 +233,9 @@ export default {
 
     // 获取所有元素
     getElementAll () {
-      return this.bpmnModeler.get('elementRegistry').getAll()
+      const all = this.bpmnModeler.get('elementRegistry').getAll()
+      console.log('all', all)
+      return all
     },
     // 根据 id 获取元素
     getElementById (id) {
@@ -240,10 +245,16 @@ export default {
     // 创建 业务对象 business objects
     createBusinessElement () {
       const bpmnFactory = this.bpmnModeler.get('bpmnFactory')
-      const taskBusinessObject = bpmnFactory.create('bpmn:Task', { id: 'Task_1', name: 'Task' })
+      const taskBusinessObject = bpmnFactory.create('bpmn:Task', {
+        id: 'Task_1',
+        name: 'Task'
+      })
 
       // 使用刚创建的业务对象创建新的图表形状
-      const task = this.createElement({ type: 'bpmn:Task', businessObject: taskBusinessObject })
+      const task = this.createElement({
+        type: 'bpmn:Task',
+        businessObject: taskBusinessObject
+      })
       return task
     },
 
@@ -268,9 +279,19 @@ export default {
     },
 
     // 添加元素并连线
-    appendConnect (sourceElement, targetElement, location = { x: 400, y: 100 }, parentsElement) {
+    appendConnect (
+      sourceElement,
+      targetElement,
+      location = { x: 400, y: 100 },
+      parentsElement
+    ) {
       const modeling = this.bpmnModeler.get('modeling')
-      modeling.appendShape(sourceElement, targetElement, location, parentsElement)
+      modeling.appendShape(
+        sourceElement,
+        targetElement,
+        location,
+        parentsElement
+      )
     },
 
     // 查看所有可用事件
@@ -315,6 +336,7 @@ export default {
     left: 50%;
     bottom: 20px;
     transform: translateX(-50%);
+    white-space: nowrap;
   }
 }
 </style>
