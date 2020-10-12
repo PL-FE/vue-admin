@@ -58,7 +58,7 @@ export default {
     })
   },
   methods: {
-    init () {
+    async init () {
       // 去除默认工具栏
       const modules = BpmnModeler.prototype._modules
       const index = modules.findIndex(it => it.paletteProvider)
@@ -99,13 +99,7 @@ export default {
       this.initEvent()
 
       // 初始化 流程图
-      this.createNewDiagram()
-    },
-
-    async createNewDiagram () {
-      // 将字符串转换成图显示出来
-      this.xml = xmlStr
-      await this.bpmnModeler.importXML(this.xml)
+      await this.createNewDiagram()
 
       // 调整与正中间
       this.bpmnModeler.get('canvas').zoom('fit-viewport', 'auto')
@@ -116,6 +110,12 @@ export default {
 
       // 默认打开 minimap
       this.bpmnModeler.get('minimap').open()
+    },
+
+    createNewDiagram () {
+      // 将字符串转换成图显示出来
+      this.xml = xmlStr
+      return this.bpmnModeler.importXML(this.xml)
     },
 
     // 绑定事件
@@ -237,6 +237,42 @@ export default {
       return this.bpmnModeler.get('elementRegistry').get(id)
     },
 
+    // 创建 业务对象 business objects
+    createBusinessElement () {
+      const bpmnFactory = this.bpmnModeler.get('bpmnFactory')
+      const taskBusinessObject = bpmnFactory.create('bpmn:Task', { id: 'Task_1', name: 'Task' })
+
+      // 使用刚创建的业务对象创建新的图表形状
+      const task = this.createElement({ type: 'bpmn:Task', businessObject: taskBusinessObject })
+      return task
+    },
+
+    // 新增元素
+    createElement (elementConfig = { type: 'bpmn:Task' }) {
+      const elementFactory = this.bpmnModeler.get('elementFactory')
+      const task = elementFactory.createShape(elementConfig)
+      return task
+    },
+
+    // 添加元素
+    appendElement (parentsElement, newElement, location = { x: 400, y: 100 }) {
+      const modeling = this.bpmnModeler.get('modeling')
+      modeling.createShape(newElement, location, parentsElement)
+      // modeling.createShape(newElement, location, parentsElement, { attach: true })
+    },
+
+    // 连线
+    connectElement (sourceElement, targetElement) {
+      const modeling = this.bpmnModeler.get('modeling')
+      modeling.connect(sourceElement, targetElement)
+    },
+
+    // 添加元素并连线
+    appendConnect (sourceElement, targetElement, location = { x: 400, y: 100 }, parentsElement) {
+      const modeling = this.bpmnModeler.get('modeling')
+      modeling.appendShape(sourceElement, targetElement, location, parentsElement)
+    },
+
     // 查看所有可用事件
     getEventBusAll () {
       const eventBus = this.bpmnModeler.get('eventBus')
@@ -245,6 +281,7 @@ export default {
       return eventTypes
     },
 
+    // 更新属性
     updateAttr (id, AttrObj = {}) {
       const element = this.getElementById(id)
       const modeling = this.bpmnModeler.get('modeling')
