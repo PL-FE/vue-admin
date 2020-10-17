@@ -17,7 +17,11 @@
         style="display: none"
         @change="loadXML" />
     </div>
-    <div ref="palette"></div>
+    <div ref="palette"
+      class="asasa">
+      <div class="custom-palette-entries"></div>
+      <div class="custom-palette-toggle"></div>
+    </div>
     <div class="canvas"
       ref="canvas"></div>
   </div>
@@ -27,9 +31,11 @@
 // 引入相关的依赖
 import BpmnModeler from 'bpmn-js/lib/Modeler'
 import customPalette from './customBpmn/palette'
+import customRenderer from './customBpmn/renderer'
+import customContextPad from './customBpmn/context-pad'
 import entries from './config/paletteEntries'
+import etlExtension from './config/etl.json'
 import minimapModule from 'diagram-js-minimap'
-
 import { xmlStr } from './xmlData' // 这里是直接引用了xml字符串
 import {
   append as svgAppend,
@@ -64,35 +70,45 @@ export default {
       modules.splice(index, 1)
 
       const canvas = this.$refs.canvas
-      // 自定义工具栏位置
-      // 自定义样式 CustomPalette.js
       const palette = this.$refs.palette
       // 建模
       this.bpmnModeler = new BpmnModeler({
-        modules,
+        // 主要容器
         container: canvas,
+        // 工具栏容器
         paletteContainer: palette,
+        // 工具栏配置及实现自定义渲染方法
         paletteEntries: entries,
+        // 开启键盘快捷
         keyboard: {
           bindTo: document
         },
+        // 添加自定义元模型
+        moddleExtensions: {
+          etl: etlExtension
+        },
+        // 扩展
         additionalModules: [
           // 小地图
           minimapModule,
           // 自定义工具栏
-          customPalette
-          // {
-          //   // 禁用滚轮滚动
-          //   zoomScroll: ['value', ''],
-          //   // 禁止拖动线
-          //   bendpoints: ['value', ''],
-          //   // 禁用左侧面板
-          //   paletteProvider: ['value', ''],
-          //   // 禁止点击节点出现contextPad
-          //   contextPadProvider: ['value', ''],
-          //   // 禁止双击节点出现label编辑框
-          //   labelEditingProvider: ['value', '']
-          // }
+          customPalette,
+          // 自定义渲染
+          customRenderer,
+          // 自定义内容面板
+          customContextPad,
+          {
+            // 禁用左侧默认工具栏
+            // paletteProvider: ['value', '']// 去不干净，还是默认生成
+            // // 禁用滚轮滚动
+            // zoomScroll: ['value', ''],
+            // // 禁止拖动线
+            // bendpoints: ['value', ''],
+            // // 禁止点击节点出现contextPad
+            // contextPadProvider: ['value', ''],
+            // // 禁止双击节点出现label编辑框
+            // labelEditingProvider: ['value', '']
+          }
         ]
       })
       // 绑定事件
@@ -104,8 +120,6 @@ export default {
       // 调整与正中间
       this.bpmnModeler.get('canvas').zoom('fit-viewport', 'auto')
 
-      const a = this.bpmnModeler.get('canvas').getContainer()
-      console.log('a', a)
       // 初始化箭头
       this.initArrow('sequenceflow-arrow-normal')
       this.initArrow('sequenceflow-arrow-active')
