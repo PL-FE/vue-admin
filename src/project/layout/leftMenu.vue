@@ -46,8 +46,8 @@ export default {
               label: 'SpreadJS'
             },
             {
-              index: 'file2img',
-              label: 'file2img'
+              index: 'File2img',
+              label: 'File2img'
             }
           ]
         },

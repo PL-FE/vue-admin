@@ -20,14 +20,14 @@ import { mapGetters, mapMutations } from 'vuex'
 import Bpmn from '@/views/bpmn'
 import ckEditor from '@/views/ck-editor'
 import SpreadJS from '@/views/spread-js'
-import file2img from '@/views/file2img'
+import File2img from '@/views/file2img'
 
 export default {
   components: {
     Bpmn,
     ckEditor,
     SpreadJS,
-    file2img
+    File2img
   },
   data () {
     return {
