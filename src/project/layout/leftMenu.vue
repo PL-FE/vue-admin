@@ -46,8 +46,12 @@ export default {
               label: 'SpreadJS'
             },
             {
-              index: 'File2img',
-              label: 'File2img'
+              index: 'ZIP2img',
+              label: 'ZIP2img'
+            },
+            {
+              index: 'PDF2Canvas',
+              label: 'PDF2Canvas'
             }
           ]
         },

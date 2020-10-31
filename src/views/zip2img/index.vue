@@ -1,22 +1,24 @@
 <template>
-  <div class="file2img">
-    <h3>解析zip中的图片</h3>
-    <el-upload class="file2img-upload"
-      drag
-      action=""
-      :limit="1"
-      accept=".zip"
-      :http-request="httpRequest"
-      :before-upload="beforeUpload">
-      <i class="el-icon-upload"></i>
-      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-      <div class="el-upload__tip"
-        slot="tip">只能上传Zip文件，解析其中的图片</div>
-    </el-upload>
+  <div class="file-container">
+    <div class="file-upload">
+      <h3>支持解析ZIP(内容只能是图片)</h3>
+      <el-upload class="file2img-upload"
+        drag
+        action=""
+        :on-change="handleChange"
+        accept=".zip"
+        :http-request="httpRequest"
+        :before-upload="beforeUpload">
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip"
+          slot="tip">支持解析ZIP(内容只能是图片)</div>
+      </el-upload>
+    </div>
 
     <div class="img-container"
-      v-if="imgSrc.length">
-      <img width="300px"
+      v-show="imgSrc.length">
+      <img width="50%"
         :src="imgSrc[currentPage - 1]"
         alt="">
       <el-pagination layout="prev, pager, next"
@@ -30,20 +32,25 @@
 
 <script>
 import JSZip from 'jszip'
+
 export default {
   data () {
     return {
-      imgSrc: '',
-      currentPage: 1
+      currentPage: 1,
+      imgSrc: []
     }
   },
   mounted () {
 
   },
   methods: {
-    httpRequest () {
-
+    handleChange (files, fileList) {
+      if (fileList.length > 1) {
+        fileList.splice(0, 1)
+      }
     },
+    httpRequest (file) { },
+
     async beforeUpload (file) {
       const newZip = new JSZip()
       const zip = await newZip.loadAsync(file)
@@ -63,12 +70,20 @@ export default {
 
       this.imgSrc = imgSrc
     }
+
   }
 }
 </script>
 
 <style lang="less" scoped>
-.img-container {
-  margin-top: 20px;
+.file-container {
+  overflow: auto;
+  display: flex;
+
+  .img-container {
+    text-align: center;
+    margin-top: 20px;
+    flex: 1;
+  }
 }
 </style>
