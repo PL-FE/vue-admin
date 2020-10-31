@@ -65,6 +65,8 @@ export default {
     httpRequest (file) { },
 
     beforeUpload (file) {
+      this.currentPage = 1 // 初始化
+
       const blob = new Blob([file])
       const reader = new FileReader()
       const that = this
@@ -79,11 +81,12 @@ export default {
       const currentPage = this.currentPage
       const loadingTask = pdfjsLib.getDocument(result)
       const pdfDocument = await loadingTask.promise
+
       this.total = pdfDocument.numPages
+
       if (!pdfDocument) console.error('Error: ' + pdfDocument)
       // Request a first page
       this.pageRendering = true
-
       const pdfPage = await pdfDocument.getPage(currentPage)
       // Display page on the existing canvas with 100% scale.
       const viewport = pdfPage.getViewport({ scale: 1.0 - 0.2 })

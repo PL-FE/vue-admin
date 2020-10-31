@@ -1,12 +1,15 @@
 <template>
   <div class="header">
+
     <span class="icon"
       @click="handleCollapse">
       {{ isCollapse ? '展开' : '关闭'}}
       <i :class="isCollapse ? 'el-icon-caret-left': 'el-icon-caret-right'">
       </i>
     </span>
-    <span class="userInfo">Admin</span>
+    <span class="userInfo"
+      @click="findMe"> <img src="@/assets/github.png"
+        alt=""></span>
   </div>
 </template>
 
@@ -28,6 +31,10 @@ export default {
   methods: {
     handleCollapse () {
       this.isCollapse = !this.isCollapse
+    },
+
+    findMe () {
+      window.open('https://github.com/PL-FE', '_blank')
     }
   }
 }
@@ -50,6 +57,7 @@ export default {
   }
 
   .userInfo {
+    cursor: pointer;
     margin-left: auto;
     margin-right: 40px;
   }
