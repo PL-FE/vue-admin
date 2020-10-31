@@ -1,7 +1,7 @@
 <template>
   <div class="file-container">
     <div class="file-upload">
-      <h3>支持解析ZIP(内容只能是图片)</h3>
+      <h3>ZIP 解析</h3>
       <el-upload class="file2img-upload"
         drag
         action=""

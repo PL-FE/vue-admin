@@ -1,7 +1,7 @@
 <template>
   <div class="file-container">
     <div class="file-upload">
-      <h3>解析 PDF</h3>
+      <h3>PDF 转 Canvas</h3>
       <el-upload class="file2img-upload"
         drag
         action=""
