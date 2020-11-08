@@ -1,24 +1,9 @@
-# my-vue-app
+## 个人 vue 案例集
 
-## Project setup
-```
-npm install
-```
+- Bpmn.js
+- CKEditor
+- SpreadJS
+- zip2img
+- pdf2canvas
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+预览地址： [http://vue.pengliang.online/](http://vue.pengliang.online/)

@@ -35,6 +35,7 @@
 <script>
 const pdfjsLib = require('pdfjs-dist')
 // Setting worker path to worker bundle.
+
 window.pdfjsWorker = require('pdfjs-dist/build/pdf.worker')
 export default {
   data () {
@@ -82,8 +83,8 @@ export default {
       const loadingTask = pdfjsLib.getDocument(result)
       const pdfDocument = await loadingTask.promise
 
-      this.total = pdfDocument.numPages
-
+      this.total = pdfDocument. 
+      console.log('pdfDocument', pdfDocument)
       if (!pdfDocument) console.error('Error: ' + pdfDocument)
       // Request a first page
       this.pageRendering = true
