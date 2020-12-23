@@ -6,13 +6,20 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tabs: [],
-    curTab: ''
+    curTab: '',
+    radioValue: ''
   },
   getters: {
     tabs: ({ tabs }) => tabs,
-    curTab: ({ curTab }) => curTab
+    curTab: ({ curTab }) => curTab,
+    radioValue ({ radioValue }) {
+      return radioValue
+    }
   },
   mutations: {
+    setRadioValue (state, newVAlue) {
+      state.radioValue = newVAlue
+    },
     SET_TABS (state, name) {
       if (state.tabs.findIndex(it => it.name === name) === -1) {
         state.tabs.push({

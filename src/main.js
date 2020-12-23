@@ -15,6 +15,10 @@ import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 import '@/assets/css/diagram-js.less'
 import '@/assets/css/bpmn.less'
 
+import VueCodemirror from 'vue-codemirror'
+import 'codemirror/lib/codemirror.css'
+
+Vue.use(VueCodemirror)
 Vue.use(CKEditor)
 Vue.use(ElementUI)
 Vue.use(components)
