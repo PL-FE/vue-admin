@@ -26,10 +26,13 @@
           </div>
         </div>
 
-        <XmlPanel @updateXml="updateXml"
-          :bpmnModeler="bpmnModeler"
-          :activeName="activeName"
-          v-if="radioValue === 'Xml'" />
+        <div class="xml-container"
+          v-if="isShowXml">
+          <codemirror ref="cmEditor"
+            @changes="mirrorCodeChange"
+            :value="xml.toString()"
+            :options="cmOptions" />
+        </div>
       </el-tab-pane>
     </el-tabs>
 
@@ -58,15 +61,27 @@ import propertiesPanelModule from 'bpmn-js-properties-panel'
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json'
 
+import { codemirror } from 'vue-codemirror'
+import 'codemirror/lib/codemirror.css'
+// xml syntax highlighting
+import 'codemirror/mode/xml/xml'
+// auto close tags
+import 'codemirror/addon/fold/xml-fold'
+import 'codemirror/addon/edit/closetag'
+// search addons
+import 'codemirror/addon/search/search'
+import 'codemirror/addon/search/searchcursor'
+import 'codemirror/addon/dialog/dialog'
+import 'codemirror/addon/dialog/dialog.css'
+
 import '@/assets/css/diagram.less'
 import '@/assets/icon/Icon.less'
-import XmlPanel from '@/views/bpmn/XmlPanel.vue'
 import ToolBar from '@/views/bpmn/ToolBar.vue'
 import { xmlStr } from './xmlData.js'
 import { mapMutations } from 'vuex'
 
 export default {
-  components: { XmlPanel, ToolBar },
+  components: { ToolBar, codemirror },
   props: {
   },
   data () {
@@ -77,16 +92,34 @@ export default {
       openPanel: true,
       scale: 1,
       activeName: 'first',
-      radioValue: 'Diagram'
+      radioValue: 'Diagram',
+      cmOptions: {
+        autoCloseTags: true,
+        dragDrop: true,
+        allowDropFileTypes: ['text/plain'],
+        lineWrapping: true,
+        lineNumbers: true,
+        mode: {
+          name: 'application/xml',
+          htmlMode: false
+        },
+        tabSize: 2
+      }
     }
   },
   computed: {
+    isShowXml () {
+      return this.radioValue === 'Xml'
+    }
   },
   watch: {
     radioValue: {
       immediate: true,
-      handler (v) {
+      handler (v, o) {
         this.setRadioValue(v)
+        if (v !== 'Xml' && o) {
+          this.createNewDiagram()
+        }
       }
     }
   },
@@ -126,6 +159,7 @@ export default {
       try {
         await this.bpmnModeler.importXML(this.xml || xmlStr)
         this.bpmnModeler.get('canvas').zoom('fit-viewport', 'auto')
+        this.saveXML()
       } catch (err) {
       }
     },
@@ -150,7 +184,16 @@ export default {
       return this
     },
 
-    handleClick () { }
+    handleClick () { },
+
+    async saveXML () {
+      const res = await this.bpmnModeler.saveXML({ format: true })
+      this.xml = res.xml.toString()
+    },
+
+    mirrorCodeChange (instance, changeObj) {
+      this.xml = instance.getValue()
+    }
 
   }
 }
@@ -162,7 +205,7 @@ export default {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  height: calc(100vh - 95px);
+  height: calc(100% - 40px);
   .canvas-container {
     display: flex;
     height: 100%;
@@ -219,5 +262,13 @@ export default {
   position: absolute;
   bottom: 10px;
   left: 10px;
+}
+
+/deep/.CodeMirror,
+/deep/.vue-codemirror {
+  height: 100%;
+}
+/deep/.xml-container {
+  height: calc(100% - 40px);
 }
 </style>
