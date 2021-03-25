@@ -6,4 +6,4 @@
 - zip2img
 - pdf2canvas
 
-预览地址： [http://vue.pengliang.online/](http://vue.pengliang.online/)
+预览地址： [http://vue.pl-fe.cn/](http://vue.pl-fe.cn/)
