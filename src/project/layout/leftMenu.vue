@@ -59,7 +59,12 @@ export default {
           label: '组件',
           index: '2',
           icon: 'el-icon-s-grid',
-          children: []
+          children: [
+            {
+              index: 'transfer',
+              label: 'transfer'
+            }
+          ]
         },
         {
           label: '404',

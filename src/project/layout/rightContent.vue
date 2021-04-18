@@ -22,6 +22,7 @@ import ckEditor from '@/views/ck-editor'
 import SpreadJS from '@/views/spread-js'
 import ZIP2img from '@/views/zip2img'
 import PDF2Canvas from '@/views/pdf2canvas'
+import transfer from '@/views/transfer'
 
 export default {
   components: {
@@ -29,7 +30,8 @@ export default {
     ckEditor,
     SpreadJS,
     ZIP2img,
-    PDF2Canvas
+    PDF2Canvas,
+    transfer
   },
   data () {
     return {

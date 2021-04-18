@@ -83,8 +83,7 @@ export default {
       const loadingTask = pdfjsLib.getDocument(result)
       const pdfDocument = await loadingTask.promise
 
-      this.total = pdfDocument. 
-      console.log('pdfDocument', pdfDocument)
+      this.total = pdfDocument
       if (!pdfDocument) console.error('Error: ' + pdfDocument)
       // Request a first page
       this.pageRendering = true
