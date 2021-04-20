@@ -1,6 +1,6 @@
 <template>
   <div class="el-transfer">
-    <transfer-panel v-bind="$props"
+    <TransferPanel v-bind="$props"
       ref="leftPanel"
       :data="sourceData"
       :title="titles[0] || t('el.transfer.titles.0')"
@@ -8,7 +8,7 @@
       :placeholder="filterPlaceholder || t('el.transfer.filterPlaceholder')"
       @checked-change="onSourceCheckedChange">
       <slot name="left-footer"></slot>
-    </transfer-panel>
+    </TransferPanel>
     <div class="el-transfer__buttons">
       <el-button type="primary"
         :class="['el-transfer__button', hasButtonTexts ? 'is-with-texts' : '']"
@@ -25,7 +25,7 @@
         <i class="el-icon-arrow-right"></i>
       </el-button>
     </div>
-    <transfer-panel v-bind="$props"
+    <TransferPanel v-bind="$props"
       ref="rightPanel"
       :data="targetData"
       :title="titles[1] || t('el.transfer.titles.1')"
@@ -33,7 +33,7 @@
       :placeholder="filterPlaceholder || t('el.transfer.filterPlaceholder')"
       @checked-change="onTargetCheckedChange">
       <slot name="right-footer"></slot>
-    </transfer-panel>
+    </TransferPanel>
   </div>
 </template>
 
@@ -122,7 +122,6 @@ export default {
 
   data () {
     return {
-      changeCurrentValue: [],
       leftChecked: [],
       rightChecked: []
     }
@@ -212,7 +211,6 @@ export default {
       currentValue = this.targetOrder === 'unshift'
         ? itemsToBeMoved.concat(currentValue)
         : currentValue.concat(itemsToBeMoved)
-      this.changeCurrentValue = currentValue
       this.$emit('input', currentValue)
       this.$emit('change', currentValue, 'right', this.leftChecked)
     },

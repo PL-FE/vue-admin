@@ -1,39 +1,32 @@
 <template>
   <div class="">
-    <Transfer v-model="value"
+    <ElTransfer v-model="value"
+      filterable
       :data="data" />
-
   </div>
 </template>
 
 <script>
-import Transfer from './main'
-const generateData = _ => {
-  const data = []
-  for (let i = 1; i <= 10000; i++) {
-    data.push({
-      key: i,
-      label: `备选项 ${i}`
-    })
-  }
-  return data
-}
+import ElTransfer from './main.vue'
 export default {
-  components: { Transfer },
+  components: { ElTransfer },
   data () {
-    return {
-      value: [],
-      data: generateData()
+    const generateData = _ => {
+      const data = []
+      for (let i = 1; i <= 10000; i++) {
+        data.push({
+          key: i,
+          label: `备选项 ${i}`
+        })
+      }
+      return data
     }
-  },
-  mounted () {
-
-  },
-  methods: {
-
+    return {
+      data: generateData(),
+      value: []
+    }
   }
 }
 </script>
-
 <style lang="less" scoped>
 </style>

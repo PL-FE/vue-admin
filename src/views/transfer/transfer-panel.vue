@@ -22,31 +22,32 @@
           @click="clearQuery"></i>
       </el-input>
 
-      <el-checkbox-group v-model="checked"
-        v-show="!hasNoMatch && data.length > 0"
+      <div class="list-view"
         :class="{ 'is-filterable': filterable }"
-        class="el-transfer-panel__list">
-
-        <div :style="`height:${viewH}px;overflow-y:scroll;`"
-          @scroll="hanldeScroll">
-          <div :style="{height:scorllH}">
-            <div class="item_box"
-              :style="`transform:translateY(${offSetY}px); `">
-              <!-- <div v-for="item in list" :key="item.id" class="item">{{item.content}}</div> -->
-
-              <el-checkbox class="el-transfer-panel__item"
+        ref="container"
+        @scroll="handleScroll">
+        <div class="list-view-phantom"
+          ref="clientHeight"
+          :style="{ height: contentHeight + 'px' }"></div>
+        <div ref="content"
+          class="list-view-content">
+          <div class="list-view-item">
+            <el-checkbox-group v-model="checked"
+              v-show="!hasNoMatch && data.length > 0"
+              class="el-transfer-panel__list">
+              <el-checkbox class="el-transfer-panel__item list-view-item"
+                :style="{ height: itemHeight + 'px' }"
                 :label="item[keyProp]"
                 :disabled="item[disabledProp]"
                 :key="item[keyProp]"
-                v-for="item in filteredData">
+                v-for="item in virtualList">
                 <option-content :option="item"></option-content>
               </el-checkbox>
-
-            </div>
+            </el-checkbox-group>
           </div>
         </div>
+      </div>
 
-      </el-checkbox-group>
       <p class="el-transfer-panel__empty"
         v-show="hasNoMatch">{{ t('el.transfer.noMatch') }}</p>
       <p class="el-transfer-panel__empty"
@@ -64,9 +65,9 @@ import ElCheckboxGroup from 'element-ui/packages/checkbox-group'
 import ElCheckbox from 'element-ui/packages/checkbox'
 import ElInput from 'element-ui/packages/input'
 import Locale from 'element-ui/src/mixins/locale'
-import mixins from './mixins'
+import virtualListMixins from './virtual-list-mixins'
 export default {
-  mixins: [Locale, mixins],
+  mixins: [Locale, virtualListMixins],
 
   name: 'ElTransferPanel',
 
@@ -257,3 +258,44 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.list-view {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+
+  &.is-filterable {
+    height: calc(100% - 62px);
+  }
+}
+
+.list-view-phantom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.list-view-content {
+  left: 0;
+  right: 0;
+  top: 0;
+  position: relative;
+}
+
+.list-view-item {
+  padding: 6px;
+  line-height: 30px;
+}
+
+/deep/ .el-transfer-panel__list {
+  height: unset;
+}
+
+/deep/.el-transfer-panel__item.el-checkbox .el-checkbox__label {
+  line-height: 19px;
+}
+</style>
