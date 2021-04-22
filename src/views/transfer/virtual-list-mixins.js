@@ -1,5 +1,4 @@
 export default {
-  name: 'ListView',
   computed: {
     contentHeight () {
       // 计算滚动条高度
