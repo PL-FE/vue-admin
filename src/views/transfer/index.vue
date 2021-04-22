@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <ElTransfer v-model="value"
       filterable
       :data="data" />
