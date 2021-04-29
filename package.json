@@ -18,7 +18,7 @@
     "diagram-js-minimap": "^2.0.4",
     "element-ui": "^2.13.2",
     "jszip": "^3.5.0",
-    "pdfjs-dist": "^2.5.207",
+    "pdfjs-dist": "^2.7.570",
     "vue": "^2.6.11",
     "vue-codemirror": "^4.0.6",
     "vue-router": "^3.2.0",
